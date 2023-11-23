@@ -1,34 +1,44 @@
 import { Box, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useState } from "react";
+import NavbarMenu from "./NavbarMenu";
+import { MdSpaceDashboard } from "react-icons/md";
+import { FaUserFriends, FaUserPlus, FaSearch } from "react-icons/fa";
 
 const Navbar = () => {
   const router = useRouter();
+  const [menus, setMenus] = useState([
+    {
+      text: "Dashboard",
+      path: "/",
+      icon: <MdSpaceDashboard />,
+    },
+    {
+      text: "Users",
+      path: "/users",
+      icon: <FaUserFriends />,
+    },
+    {
+      text: "Registration",
+      path: "/registration",
+      icon: <FaUserPlus />,
+    },
+    {
+      text: "Search",
+      path: "/search",
+      icon: <FaSearch />,
+    },
+  ]);
   return (
-    <Box>
-      <Box
-        color={router.pathname === "/" ? "blue" : "black"}
-        paddingX={5}
-        paddingY={3}
-      >
-        Home
-      </Box>
-      <Box paddingX={5} paddingY={3}>
-        Dashboard
-      </Box>
-      <Box
-        color={router.pathname === "/users" ? "blue" : "black"}
-        paddingX={5}
-        paddingY={3}
-      >
-        Users
-      </Box>
-      <Box paddingX={5} paddingY={3}>
-        Registration
-      </Box>
-      <Box paddingX={5} paddingY={3}>
-        Search
-      </Box>
+    <Box backgroundColor={"darkcyan"}>
+      {menus.map((menu, i) => (
+        <NavbarMenu
+          text={menu.text}
+          icon={menu.icon}
+          path={menu.path}
+          key={i}
+        />
+      ))}
     </Box>
   );
 };
