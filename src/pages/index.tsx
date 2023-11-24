@@ -5,12 +5,10 @@ const inter = Inter({ subsets: ["latin"] });
 import { Box } from "@chakra-ui/react";
 import axios from "axios";
 
-
-
 export const getServerSideProps = async () => {
   try {
-    const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API}/users`);
-    console.log(res.data);
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API}/`);
+    console.log(res.data.data.length);
     return {
       props: { data: res.data.data },
     };
@@ -24,11 +22,43 @@ export default function Home({ data }: { data: any }) {
       <table>
         <thead>
           <tr>
-            <div>
-              <td></td>
-            </div>
+            <th>
+              <div className="table-header">Id</div>
+            </th>
+            <th>
+              <div className="table-header">Nama</div>
+            </th>
+            <th>
+              <div className="table-header">sales_id</div>
+            </th>
+            <th>
+              <div className="table-header">item_id</div>
+            </th>
+            <th>
+              <div className="table-header">qty</div>
+            </th>
+            <th>
+              <div className="table-header">Consumen Name</div>
+            </th>
+            <th>
+              <div className="table-header">Transaction Date</div>
+            </th>
           </tr>
         </thead>
+        <tbody>
+          {data.length > 0 &&
+            data.map((row: any, i: number) => (
+              <tr>
+                <td>{row.id}</td>
+                <td>{row.name}</td>
+                <td>{row.sales_id}</td>
+                <td>{row.item_id}</td>
+                <td>{row.qty}</td>
+                <td>{row.consumen_name}</td>
+                <td>{row.transaction_date}</td>
+              </tr>
+            ))}
+        </tbody>
       </table>
     </Box>
   );
